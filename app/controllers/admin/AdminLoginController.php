@@ -6,10 +6,26 @@ use app\controllers\ContainerController;
 
 class AdminLoginController extends ContainerController {
 
-	 public function store()
+	 public function store() {
 
-		{
-			return toJson($_POST);
-		}
+	 	$loginValidate = new LoginValidate();
+	 	$loginValidate->validate();
+
+	 	if($loginValidate->hasErros()){
+
+	 		return redirect('/admin');
+
+	 	}
+
+	 	auth(new Admin, $loginValidate);
+
+
+	 	return redirect('/painel');
+
+
+	 }
+		
+
 
 }
+
